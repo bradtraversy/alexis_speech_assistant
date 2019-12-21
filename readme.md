@@ -1,6 +1,6 @@
 # Alexis Speech Assistant
 
-Python app that uses speech recognition and gTTS to answer speech commands
+Python app that uses speech recognition and Google text-to-speech to answer speech commands
 
 ### Dependencies
 
@@ -8,13 +8,13 @@ Python app that uses speech recognition and gTTS to answer speech commands
 pip install speechrecognition
 pip install pyaudio
 pip install gTTS
-pip install PyObjC
 pip install playsound
+pip install PyObjC
 ```
 
 ### Voice Commands
 
-You can add other commands, but these are the onces that exist
+You can add other commands, but these are the ones that exist
 
 - What is your name?
 - What time is it
