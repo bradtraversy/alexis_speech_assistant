@@ -1,13 +1,18 @@
 import speech_recognition as sr
 import webbrowser
 import time
-import playsound
 import os
 import random
-from gtts import gTTS
+import pyttsx3
 from time import ctime
 
 r = sr.Recognizer()
+
+speaker = pyttsx3.init('sapi5')
+voices = speaker.getProperty('voices')
+speaker.setProperty('voice', voices[1].id)
+rate = speaker.getProperty('rate')
+speaker.setProperty('rate', 173)
 
 
 def record_audio(ask=False):
@@ -26,13 +31,9 @@ def record_audio(ask=False):
 
 
 def alexis_speak(audio_string):
-    tts = gTTS(text=audio_string, lang='en')
-    r = random.randint(1, 10000000)
-    audio_file = 'audio-' + str(r) + '.mp3'
-    tts.save(audio_file)
-    playsound.playsound(audio_file)
-    print(audio_string)
-    os.remove(audio_file)
+    print('Computer: ' + audio_string)
+    speaker.say(audio_string)
+    speaker.runAndWait()
 
 
 def respond(voice_data):
