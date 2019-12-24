@@ -60,15 +60,13 @@ def respond(voice_data):
         definitions=[]
         for paragraph in soup.find_all('p'):
             definitions.append(str(paragraph.text))
-        if definitions:
-            if definitions[0]:
-                alexis_speak('im sorry i could not find that definition, please try a web search')
-            elif definitions[1]:
+        try:    
+            if definitions[1]:
                 alexis_speak ('here is what i found '+definitions[1])
-            else:
+            elif definitions[2]:
                 alexis_speak ('Here is what i found '+definitions[2])
-        else:
-                alexis_speak("im sorry i could not find the definition for "+definition) 
+        except IndexError:
+                alexis_speak("im sorry i could not find the definition for "+definition+", please try a web search") 
 
     if 'exit' in voice_data:
         exit()
