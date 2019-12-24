@@ -4,6 +4,8 @@ import time
 import os
 import random
 import pyttsx3
+import bs4 as bs
+import urllib.request
 from time import ctime
 
 r = sr.Recognizer()
@@ -51,6 +53,21 @@ def respond(voice_data):
         url = 'https://google.nl/maps/place/' + location + '/&amp;'
         webbrowser.get().open(url)
         alexis_speak('Here is the location of ' + location)
+    if 'definition'in voice_data:
+        definition=record_audio("what do you need the definition of")
+        url=urllib.request.urlopen('https://en.wikipedia.org/wiki/'+definition)
+        soup=bs.BeautifulSoup(url,'lxml')
+        definitions=[]
+        for paragraph in soup.find_all('p'):
+            definitions.append(str(paragraph.text))
+        try:    
+            if definitions[1]:
+                alexis_speak ('here is what i found '+definitions[1])
+            elif definitions[2]:
+                alexis_speak ('Here is what i found '+definitions[2])
+        except IndexError:
+                alexis_speak("im sorry i could not find the definition for "+definition+", please try a web search") 
+
     if 'exit' in voice_data:
         exit()
 

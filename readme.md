@@ -11,6 +11,7 @@ pip install pyttsx3
 pip install pyaudio
 pip install playsound
 pip install PyObjC
+pip install beautifulsoup4 
 ```
 ```
 pip install PyAudio
@@ -26,3 +27,4 @@ You can add other commands, but these are the ones that exist
 - Search
 - Find Location
 - Exit
+- Definition
