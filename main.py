@@ -9,6 +9,7 @@ import ssl
 import certifi
 import time
 import os # to remove created audio files
+import datetime
 
 class person:
     name = ''
@@ -46,6 +47,20 @@ def speak(audio_string):
     playsound.playsound(audio_file) # play the audio file
     print(f"kiri: {audio_string}") # print what app said
     os.remove(audio_file) # remove audio file
+
+#  to wish person
+ def wishMe():
+    hour=datetime.datetime.now().hour
+    if hour>=0 and hour<12:
+        speak("Hello,Good Morning")
+        print("Hello,Good Morning")
+    elif hour>=12 and hour<18:
+        speak("Hello,Good Afternoon")
+        print("Hello,Good Afternoon")
+    else:
+        speak("Hello,Good Evening")
+        print("Hello,Good Evening")
+    
 
 def respond(voice_data):
     # 1: greeting
@@ -122,6 +137,8 @@ time.sleep(1)
 
 person_obj = person()
 while(1):
+    wishMe()
+    speak("Tell me how can I help you now?")
     voice_data = record_audio() # get the voice input
     respond(voice_data) # respond
 
