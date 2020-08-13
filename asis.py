@@ -14,6 +14,7 @@ import pyautogui #screenshot
 import pyttsx3
 import bs4 as bs
 import urllib.request
+import requests
 
 class person:
     name = ''
@@ -75,15 +76,19 @@ def respond(voice_data):
 
     # 2: name
     if there_exists(["what is your name","what's your name","tell me your name"]):
+
         if person_obj.name:
-            engine_speak("whats with my name ")
+            engine_speak(f"My name is {asis_obj.name}, {person_obj.name}") #gets users name from voice input
         else:
-            engine_speak("i dont know my name . what's your name?")
+            engine_speak(f"My name is {asis_obj.name}. what's your name?") #incase you haven't provided your name.
 
     if there_exists(["my name is"]):
         person_name = voice_data.split("is")[-1].strip()
         engine_speak("okay, i will remember that " + person_name)
         person_obj.setName(person_name) # remember name in person object
+    
+    if there_exists(["what is my name"]):
+        engine_speak("Your name must be " + person_obj.name)
     
     if there_exists(["your name should be"]):
         asis_name = voice_data.split("be")[-1].strip()
@@ -95,7 +100,7 @@ def respond(voice_data):
         engine_speak("I'm very well, thanks for asking " + person_obj.name)
 
     # 4: time
-    if there_exists(["what's the time","tell me the time","what time is it"]):
+    if there_exists(["what's the time","tell me the time","what time is it","what is the time"]):
         time = ctime().split(" ")[3].split(":")[0:2]
         if time[0] == "00":
             hours = '12'
@@ -111,10 +116,17 @@ def respond(voice_data):
         url = "https://google.com/search?q=" + search_term
         webbrowser.get().open(url)
         engine_speak("Here is what I found for" + search_term + "on google")
+    
+    if there_exists(["search"]) and 'youtube' not in voice_data:
+        search_term = voice_data.replace("search","")
+        url = "https://google.com/search?q=" + search_term
+        webbrowser.get().open(url)
+        engine_speak("Here is what I found for" + search_term + "on google")
 
     # 6: search youtube
     if there_exists(["youtube"]):
         search_term = voice_data.split("for")[-1]
+        search_term = search_term.replace("on youtube","").replace("search","")
         url = "https://www.youtube.com/results?search_query=" + search_term
         webbrowser.get().open(url)
         engine_speak("Here is what I found for " + search_term + "on youtube")
@@ -182,7 +194,7 @@ def respond(voice_data):
             engine_speak(int(voice_data.split()[0]) + int(voice_data.split()[2]))
         elif opr == '-':
             engine_speak(int(voice_data.split()[0]) - int(voice_data.split()[2]))
-        elif opr == 'multiply':
+        elif opr == 'multiply' or 'x':
             engine_speak(int(voice_data.split()[0]) * int(voice_data.split()[2]))
         elif opr == 'divide':
             engine_speak(int(voice_data.split()[0]) / int(voice_data.split()[2]))
@@ -194,7 +206,7 @@ def respond(voice_data):
      #13 screenshot
     if there_exists(["capture","my screen","screenshot"]):
         myScreenshot = pyautogui.screenshot()
-        myScreenshot.save('D:/screenshot/screen.png') 
+        myScreenshot.save('D:/screenshot/screen.png')
     
     
      #14 to search wikipedia for definition
@@ -220,12 +232,26 @@ def respond(voice_data):
         engine_speak("bye")
         exit()
 
+    # Current city or region
+    if there_exists(["where am i"]):
+        Ip_info = requests.get('https://api.ipdata.co?api-key=test').json()
+        loc = Ip_info['region']
+        engine_speak(f"You must be somewhere in {loc}")    
+   
+   # Current location as per Google maps
+    if there_exists(["what is my exact location"]):
+        url = "https://www.google.com/maps/search/Where+am+I+?/"
+        webbrowser.get().open(url)
+        engine_speak("You must be somewhere near here, as per Google maps")    
+
+
 
 time.sleep(1)
 
 person_obj = person()
 asis_obj = asis()
 asis_obj.name = 'kiki'
+person_obj.name = ""
 engine = pyttsx3.init()
 
 
