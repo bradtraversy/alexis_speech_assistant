@@ -1,6 +1,5 @@
 import speech_recognition as sr # recognise speech
-import playsound # to play an audio file
-from gtts import gTTS # google text to speech
+import pyttsx3 #to play audio
 import random
 from time import ctime # get time details
 import webbrowser # open browser
@@ -26,6 +25,7 @@ def record_audio(ask=False):
     with sr.Microphone() as source: # microphone as source
         if ask:
             speak(ask)
+        r.adjust_for_ambient_noise(source) #it makes it to recognize much clearly, by reducing background noise
         audio = r.listen(source)  # listen for the audio via source
         voice_data = ''
         try:
@@ -37,15 +37,21 @@ def record_audio(ask=False):
         print(f">> {voice_data.lower()}") # print what user said
         return voice_data.lower()
 
-# get string and make a audio file to be played
+# setting up sound engine, for fast response (reply)
+try:
+    engine = pyttsx3.init()
+    voices = engine.getProperty('voices')
+    volume = engine.getProperty('volume')
+    engine.setProperty('volume', 1)
+    engine.setProperty('voices', voices[0].id)
+except Exception as e:
+    print(e)
+    quit()
+
+#playing output audio
 def speak(audio_string):
-    tts = gTTS(text=audio_string, lang='en') # text to speech(voice)
-    r = random.randint(1,20000000)
-    audio_file = 'audio' + str(r) + '.mp3'
-    tts.save(audio_file) # save as mp3
-    playsound.playsound(audio_file) # play the audio file
-    print(f"kiri: {audio_string}") # print what app said
-    os.remove(audio_file) # remove audio file
+    engine.say(audio_string)
+    engine.runAndWait()
 
 def respond(voice_data):
     # 1: greeting
