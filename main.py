@@ -1,4 +1,5 @@
 import speech_recognition as sr # recognise speech
+import pyttsx3 #to play audio
 import random
 from time import ctime # get time details
 import webbrowser # open browser
@@ -7,7 +8,6 @@ import ssl
 import certifi
 import time
 import os # to remove created audio files
-import pyttsx3 #to play audio
 
 class person:
     name = ''
@@ -25,7 +25,7 @@ def record_audio(ask=False):
     with sr.Microphone() as source: # microphone as source
         if ask:
             speak(ask)
-        r.adjust_for_ambient_noise(source) #it makes too much fast recognition, by reducing background noise
+        r.adjust_for_ambient_noise(source) #it makes it to recognize much clearly, by reducing background noise
         audio = r.listen(source)  # listen for the audio via source
         voice_data = ''
         try:
