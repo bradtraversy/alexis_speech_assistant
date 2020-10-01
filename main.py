@@ -10,6 +10,12 @@ import certifi
 import time
 import os # to remove created audio files
 
+from win32com.client import Dispatch
+def speak(str):
+    speak = Dispatch(("SAPI.SpVoice"))
+    speak.Speak(str)
+if __name__ == '__main__':
+    speak("Hallow sir welcome")
 class person:
     name = ''
     def setName(self, name):
@@ -25,6 +31,7 @@ r = sr.Recognizer() # initialise a recogniser
 def record_audio(ask=False):
     with sr.Microphone() as source: # microphone as source
         if ask:
+            speak("say something") 
             speak(ask)
         audio = r.listen(source)  # listen for the audio via source
         voice_data = ''
@@ -49,7 +56,8 @@ def speak(audio_string):
 
 def respond(voice_data):
     # 1: greeting
-    if there_exists(['hey','hi','hello']):
+    if there_exists(['hey','hi','hello', 'wake up' ]):
+        speak (" How can i help you sir") 
         greetings = [f"hey, how can I help you {person_obj.name}", f"hey, what's up? {person_obj.name}", f"I'm listening {person_obj.name}", f"how can I help you? {person_obj.name}", f"hello {person_obj.name}"]
         greet = greetings[random.randint(0,len(greetings)-1)]
         speak(greet)
@@ -64,7 +72,9 @@ def respond(voice_data):
     if there_exists(["my name is"]):
         person_name = voice_data.split("is")[-1].strip()
         speak(f"okay, i will remember that {person_name}")
+        speak(" nice to meet you sir") 
         person_obj.setName(person_name) # remember name in person object
+        
 
     # 3: greeting
     if there_exists(["how are you","how are you doing"]):
@@ -82,6 +92,7 @@ def respond(voice_data):
         speak(time)
 
     # 5: search google
+    speak("what you want") 
     if there_exists(["search for"]) and 'youtube' not in voice_data:
         search_term = voice_data.split("for")[-1]
         url = f"https://google.com/search?q={search_term}"
@@ -90,6 +101,7 @@ def respond(voice_data):
 
     # 6: search youtube
     if there_exists(["youtube"]):
+        speak ("here we go") 
         search_term = voice_data.split("for")[-1]
         url = f"https://www.youtube.com/results?search_query={search_term}"
         webbrowser.get().open(url)
@@ -115,6 +127,7 @@ def respond(voice_data):
             speak('oops, something went wrong')
     if there_exists(["exit", "quit", "goodbye"]):
         speak("going offline")
+        speak("bye") 
         exit()
 
 
