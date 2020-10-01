@@ -9,7 +9,12 @@ import ssl
 import certifi
 import time
 import os # to remove created audio files
-
+#for audio output instead of print it is short and simple code.
+def voice(p):
+    myobj=gTTS(text=p,lang='en',slow=False)
+    myobj.save('try.mp3')
+    playsound('try.mp3')
+    #simplest code try it..
 class person:
     name = ''
     def setName(self, name):
