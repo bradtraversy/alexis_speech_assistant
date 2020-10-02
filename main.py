@@ -1,14 +1,20 @@
 import speech_recognition as sr # recognise speech
-import playsound # to play an audio file
-from gtts import gTTS # google text to speech
+import playsound # to play an audio file          ## remove these
+from gtts import gTTS # google text to speech     ## remove these
 import random
 from time import ctime # get time details
 import webbrowser # open browser
 import yfinance as yf # to fetch financial data
-import ssl
-import certifi
+import ssl                                        ## remove these
+import certifi                                    ## remove these
 import time
-import os # to remove created audio files
+import os # to remove created audio files         ## remove these
+
+
+import pyttsx3
+engine = pyttsx3.init('sapi5')
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[1].id)
 
 class person:
     name = ''
@@ -24,6 +30,7 @@ r = sr.Recognizer() # initialise a recogniser
 # listen for audio and convert it to text:
 def record_audio(ask=False):
     with sr.Microphone() as source: # microphone as source
+        print("Listening...")
         if ask:
             speak(ask)
         audio = r.listen(source)  # listen for the audio via source
@@ -31,27 +38,27 @@ def record_audio(ask=False):
         try:
             voice_data = r.recognize_google(audio)  # convert audio to text
         except sr.UnknownValueError: # error: recognizer does not understand
+            print('I did not get that')
             speak('I did not get that')
         except sr.RequestError:
+            print('Sorry, the service is down')
             speak('Sorry, the service is down') # error: recognizer is not connected
         print(f">> {voice_data.lower()}") # print what user said
         return voice_data.lower()
 
+
 # get string and make a audio file to be played
+
 def speak(audio_string):
-    tts = gTTS(text=audio_string, lang='en') # text to speech(voice)
-    r = random.randint(1,20000000)
-    audio_file = 'audio' + str(r) + '.mp3'
-    tts.save(audio_file) # save as mp3
-    playsound.playsound(audio_file) # play the audio file
-    print(f"kiri: {audio_string}") # print what app said
-    os.remove(audio_file) # remove audio file
+    engine.say(audio_string)
+    engine.runAndWait()
+
 
 def respond(voice_data):
     # 1: greeting
     if there_exists(['hey','hi','hello']):
         greetings = [f"hey, how can I help you {person_obj.name}", f"hey, what's up? {person_obj.name}", f"I'm listening {person_obj.name}", f"how can I help you? {person_obj.name}", f"hello {person_obj.name}"]
-        greet = greetings[random.randint(0,len(greetings)-1)]
+        greet = random.choice(greetings)
         speak(greet)
 
     # 2: name
@@ -111,7 +118,8 @@ def respond(voice_data):
             price = stock.info["regularMarketPrice"]
 
             speak(f'price of {search_term} is {price} {stock.info["currency"]} {person_obj.name}')
-        except:
+        except Exception as e:
+            print(e)
             speak('oops, something went wrong')
     if there_exists(["exit", "quit", "goodbye"]):
         speak("going offline")
@@ -124,5 +132,3 @@ person_obj = person()
 while(1):
     voice_data = record_audio() # get the voice input
     respond(voice_data) # respond
-
-
