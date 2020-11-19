@@ -22,7 +22,7 @@ pip install PyAudio
 You can add other commands, but these are the ones that exist
 
 - What is your name?
-- What time is it
+- What time is it?
 - Search
 - Find Location
 - Exit
