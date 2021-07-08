@@ -1,0 +1,10 @@
+LICENSE.txt
+MANIFEST.in
+README.rst
+setup.cfg
+setup.py
+multitasking/__init__.py
+multitasking.egg-info/PKG-INFO
+multitasking.egg-info/SOURCES.txt
+multitasking.egg-info/dependency_links.txt
+multitasking.egg-info/top_level.txt

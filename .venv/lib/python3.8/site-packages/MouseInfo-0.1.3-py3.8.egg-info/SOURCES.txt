@@ -1,0 +1,11 @@
+MANIFEST.in
+README.md
+setup.cfg
+setup.py
+src/MouseInfo.egg-info/PKG-INFO
+src/MouseInfo.egg-info/SOURCES.txt
+src/MouseInfo.egg-info/dependency_links.txt
+src/MouseInfo.egg-info/requires.txt
+src/MouseInfo.egg-info/top_level.txt
+src/mouseinfo/__init__.py
+src/mouseinfo/__main__.py

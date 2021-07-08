@@ -12,15 +12,16 @@ This app initially used the Google text-to-speech API, but has been updated to u
 - If brew not already installed, download Homebrew. 
 
 ```
-pip install speechrecognition
-pip install pyttsx3
-pip install pyaudio
-pip install playsound
-pip install PyObjC
+poetry install
 ```
-```
-pip install PyAudio
-```
+
+*Note*
+**if you have problem in installing pyaudio library follow these steps:**
+
+1. `sudo apt-get install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0`
+2. `sudo apt-get install ffmpeg libav-tools`
+3. `sudo pip install pyaudio`
+
 (If there is a issue in installing PyAudio use .whl file from this link [https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio))  
 
 ### Voice Commands
