@@ -1,0 +1,15 @@
+MANIFEST.in
+README.md
+setup.cfg
+setup.py
+PyTweening.egg-info/PKG-INFO
+PyTweening.egg-info/SOURCES.txt
+PyTweening.egg-info/dependency_links.txt
+PyTweening.egg-info/top_level.txt
+docs/Makefile
+docs/conf.py
+docs/index.rst
+docs/make.bat
+pytweening/__init__.py
+tests/basicTests.py
+tests/generateExcelGraphs.py
