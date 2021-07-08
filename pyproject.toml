@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "alexis_speech_assistant"
+version = "0.1.0"
+description = ""
+authors = ["Muhannad <Muhannadalmughrabi233@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+SpeechRecognition = "^3.8.1"
+pyttsx3 = "^2.90"
+playsound = "^1.2.2"
+gTTS = "^2.2.3"
+yfinance = "^0.1.61"
+bs4 = "^0.0.1"
+PyAutoGUI = "^0.9.53"
+requests = "^2.25.1"
+pilo = "^0.6.2"
+Pillow = "^8.3.1"
+PyAudio = "^0.2.11"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
