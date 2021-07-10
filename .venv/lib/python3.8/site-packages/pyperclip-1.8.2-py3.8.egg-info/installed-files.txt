@@ -1,8 +1,0 @@
-../pyperclip/__init__.py
-../pyperclip/__main__.py
-../pyperclip/__pycache__/__init__.cpython-38.pyc
-../pyperclip/__pycache__/__main__.cpython-38.pyc
-PKG-INFO
-SOURCES.txt
-dependency_links.txt
-top_level.txt
