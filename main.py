@@ -10,6 +10,8 @@ import certifi
 import time
 import os # to remove created audio files
 
+
+
 class person:
     name = ''
     def setName(self, name):
@@ -38,14 +40,10 @@ def record_audio(ask=False):
         return voice_data.lower()
 
 # get string and make a audio file to be played
-def speak(audio_string):
-    tts = gTTS(text=audio_string, lang='en') # text to speech(voice)
-    r = random.randint(1,20000000)
-    audio_file = 'audio' + str(r) + '.mp3'
-    tts.save(audio_file) # save as mp3
-    playsound.playsound(audio_file) # play the audio file
-    print(f"kiri: {audio_string}") # print what app said
-    os.remove(audio_file) # remove audio file
+def speak(p):
+    myobj=gTTS(text=p,lang='en',slow=False)
+    myobj.save('try.mp3')
+    playsound('try.mp3')
 
 def respond(voice_data):
     # 1: greeting
