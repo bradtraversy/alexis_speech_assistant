@@ -15,7 +15,8 @@ import pyttsx3
 import bs4 as bs
 import urllib.request
 import requests
-
+import pyjokes
+import wikipedia
 class person:
     name = ''
     def setName(self, name):
@@ -90,6 +91,12 @@ def respond(voice_data):
     if there_exists(["what is my name"]):
         engine_speak("Your name must be " + person_obj.name)
     
+    if there_exists("Tell me a joke"):
+        engine_speak(pyjokes.get_joke())
+    if there_exists("Wiki"):
+        cmd = voice_data.replace("Wiki","")
+        engine_say(wikipedia.summary(cmd,1))
+        print(wikipedia.summary(cmd,1))
     if there_exists(["your name should be"]):
         asis_name = voice_data.split("be")[-1].strip()
         engine_speak("okay, i will remember that my name is " + asis_name)
@@ -208,7 +215,7 @@ def respond(voice_data):
         myScreenshot = pyautogui.screenshot()
         myScreenshot.save('D:/screenshot/screen.png')
     
-    
+        
      #14 to search wikipedia for definition
     if there_exists(["definition of"]):
         definition=record_audio("what do you need the definition of")
